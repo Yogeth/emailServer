@@ -9,13 +9,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService {
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+JavaMailSender javaMailSender;
+
+    public EmailService(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
     private final String sender = "yogethcr@gmail.com";
 
     public String sendMail(EmailEntity emailEntity)
     {
-       try{
+//       try{
            SimpleMailMessage mailMessage = new SimpleMailMessage();
 
            mailMessage.setFrom(sender);
@@ -24,8 +27,8 @@ public class EmailService {
            javaMailSender.send(mailMessage);
 
            return "Mail Sent Sucessfully!";
-       }catch(Exception e){
-           return "Error while Sending Mail !";
-       }
+//       }catch(Exception e){
+//           return "Error while Sending Mail !";
+//       }
     }
 }
