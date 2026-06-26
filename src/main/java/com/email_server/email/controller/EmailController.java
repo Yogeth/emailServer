@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(value = "*")
+@CrossOrigin(value = "https://my-portfolio-1kcr.vercel.app")
 public class EmailController {
 
     @Autowired
