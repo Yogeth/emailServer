@@ -21,10 +21,8 @@ public class TurnstileResponse {
 
     private String cdata;
 
-    // Default constructor for deserialization
     public TurnstileResponse() {}
 
-    // Getters and Setters
     public boolean isSuccess() {
         return success;
     }
