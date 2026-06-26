@@ -3,7 +3,6 @@ FROM gradle:8-jdk21 AS build
 WORKDIR /app
 COPY . .
 
-# FIX: Grant execution permissions to the gradlew script
 RUN chmod +x gradlew
 RUN ./gradlew bootJar --no-daemon
 
@@ -15,4 +14,6 @@ WORKDIR /email
 COPY --from=build /app/build/libs/*[!plain].jar app.jar
 
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# FIX: Use the exact absolute path to your jar file
+ENTRYPOINT ["java", "-jar", "/email/app.jar"]
