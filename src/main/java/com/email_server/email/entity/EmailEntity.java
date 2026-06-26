@@ -8,8 +8,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmailEntity {
-    private String reciver;
-    private String messgeBody;
     private String subject;
-    private String attachment;
+    private String receiver;
+    private String messageBody;
+    private String captchaToken;
+
+
+    public EmailEntity(String subject, String receiver, String messageBody) {
+        this.subject =subject;
+        this.receiver=receiver;
+        this.messageBody = messageBody;
+    }
+
 }
