@@ -70,7 +70,6 @@ public class EmailService {
                 return "Mail Sent Sucessfully!";
             }catch(Exception e){
 
-                System.out.println(e);
                 return "Error while Sending Mail !";
             }
     }
