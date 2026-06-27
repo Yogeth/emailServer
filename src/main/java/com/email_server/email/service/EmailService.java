@@ -69,6 +69,7 @@ public class EmailService {
             return true;
             }catch(Exception e){
                 e.printStackTrace();
+                System.err.println("email sending failed: "+e.getMessage());
                   return false;
             }
     }
