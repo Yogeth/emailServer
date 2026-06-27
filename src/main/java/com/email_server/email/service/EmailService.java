@@ -54,7 +54,7 @@ public class EmailService {
     }
 
 
-    public String getDetails(EmailEntity entity )
+    public boolean getDetails(EmailEntity entity )
     {
 
             try{
@@ -66,11 +66,10 @@ public class EmailService {
            mailMessage.setText(entity.getMessageBody());
            mailMessage.setReplyTo(entity.getReceiver());
            javaMailSender.send(mailMessage);
-
-                return "Mail Sent Sucessfully!";
+            return true;
             }catch(Exception e){
-
-                return "Error while Sending Mail !";
+                e.printStackTrace();
+                  return false;
             }
     }
 }

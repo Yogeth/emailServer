@@ -19,11 +19,14 @@ public class EmailController {
     public ResponseEntity<String> getDetail(@RequestBody EmailEntity emailEntity) {
         TurnstileResponse validation = emailService.validateToken(emailEntity.getCaptchaToken());
         if (validation.isSuccess()) {
-            emailService.getDetails(
+          boolean serv =  emailService.getDetails(
                     new EmailEntity(emailEntity.getSubject(), emailEntity.getReceiver(), emailEntity.getMessageBody()));
             System.out.println("valitation success in controller");
 
-            return ResponseEntity.ok("SUCESS");
+            if(serv)
+                return ResponseEntity.ok("SUCESS");
+            else
+                return ResponseEntity.badRequest().body("failed");
 
         } else {
             System.out.println("valitation unsucess in controller");
