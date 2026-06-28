@@ -20,9 +20,7 @@ public class EmailService {
 
     @Value("${cloudflare.turnstile.secretkey}")
     private String SECRET_KEY;
-
-    @Value("${spring.mail.username}")
-    private String sender ;
+    
     private final RestTemplate restTemplate = new RestTemplate();
 
     public TurnstileResponse validateToken(String token) {
