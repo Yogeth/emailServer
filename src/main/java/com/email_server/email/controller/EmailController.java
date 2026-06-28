@@ -1,7 +1,6 @@
 package com.email_server.email.controller;
 
 import com.email_server.email.TurnstileResponse;
-import com.email_server.email.entity.EmailEntity;
 import com.email_server.email.service.EmailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +15,11 @@ public class EmailController {
     private EmailService emailService;
 
     @PostMapping("/captcha-verification")
-    public ResponseEntity<String> getDetail(@RequestBody EmailEntity emailEntity) {
-        TurnstileResponse validation = emailService.validateToken(emailEntity.getCaptchaToken());
+    public ResponseEntity<String> getDetail(@RequestBody String token) {
+        TurnstileResponse validation = emailService.validateToken(token);
         if (validation.isSuccess()) {
-          boolean serv =  emailService.getDetails(
-                    new EmailEntity(emailEntity.getSubject(), emailEntity.getReceiver(), emailEntity.getMessageBody()));
-            System.out.println("valitation success in controller");
-
-            if(serv)
-                return ResponseEntity.ok("SUCESS");
-            else
-                return ResponseEntity.badRequest().body("failed");
-
+            System.out.println("validation sucess");
+                    return ResponseEntity.ok("SUCCESS");
         } else {
             System.out.println("valitation unsucess in controller");
             return ResponseEntity.badRequest()

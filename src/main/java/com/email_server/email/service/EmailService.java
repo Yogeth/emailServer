@@ -1,14 +1,11 @@
 package com.email_server.email.service;
 
 import com.email_server.email.TurnstileResponse;
-import com.email_server.email.entity.EmailEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -28,12 +25,6 @@ public class EmailService {
     private String sender ;
     private final RestTemplate restTemplate = new RestTemplate();
 
-    final JavaMailSender javaMailSender;
-
-    public EmailService(JavaMailSender javaMailSender){
-        this.javaMailSender = javaMailSender;
-    }
-
     public TurnstileResponse validateToken(String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -51,26 +42,5 @@ public class EmailService {
             errorResponse.setErrorCodes(List.of("internal-error"));
             return errorResponse;
         }
-    }
-
-
-    public boolean getDetails(EmailEntity entity )
-    {
-
-            try{
-                SimpleMailMessage mailMessage = new SimpleMailMessage();
-
-           mailMessage.setFrom(sender);
-           mailMessage.setTo(sender);
-           mailMessage.setSubject(entity.getSubject());
-           mailMessage.setText(entity.getMessageBody());
-           mailMessage.setReplyTo(entity.getReceiver());
-           javaMailSender.send(mailMessage);
-            return true;
-            }catch(Exception e){
-                e.printStackTrace();
-                System.err.println("email sending failed: "+e.getMessage());
-                  return false;
-            }
     }
 }
